@@ -1,144 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profile Chat Page</title>
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    background: #111;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: white;
-  }
-  .overlayBg {
-    position: fixed;
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .modalContainer {
-    background: #050505;
-    width: 340px;
-    border-radius: 16px;
-    padding: 25px 20px;
-    border: 1px solid #333;
-    position: relative;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.9);
-  }
-  .closeIcon {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    cursor: pointer;
-    font-size: 18px;
-    color: #fff;
-  }
-  .profilePic {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 3px solid #ff0055;
-    margin: 10px auto;
-    object-fit: cover;
-    box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
-  }
-  .userName {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 15px 0 5px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-  }
-  .verifyBadge {
-    color: #1da1f2;
-    font-size: 16px;
-  }
-  .bioText {
-    font-size: 14px;
-    color: #ccc;
-    margin-bottom: 30px;
-  }
-  .btnPrimary {
-    background: #ff0055;
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 14px;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 12px;
-    transition: 0.3s;
-  }
-  .btnPrimary:hover {
-    background: #e6004c;
-  }
-  .actionRow {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  .btnFollowed {
-    background: #ff0055;
-    color: white;
-    border: none;
-    width: 50%;
-    padding: 12px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .btnMessage {
-    background: transparent;
-    color: white;
-    border: 1px solid white;
-    width: 50%;
-    padding: 12px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Private Live Stream</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
+        
+        body, html { 
+            height: 100%; 
+            width: 100%; 
+            background-color: #050505; 
+            overflow: hidden; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        /* Animated Blurred Background Photo */
+        .bg-blur {
+            position: absolute; 
+            top: -10%; left: -10%; 
+            width: 120%; height: 120%;
+            background: url('image_d1690e.jpg') no-repeat center center;
+            background-size: cover; 
+            filter: blur(25px) brightness(0.35); 
+            z-index: 0;
+            animation: breathe 8s infinite alternate ease-in-out;
+        }
+
+        .app-container {
+            position: relative; 
+            z-index: 10;
+            width: 100%; 
+            max-width: 420px; 
+            height: 100%; 
+            max-height: 850px;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        /* =========================================
+           STEP 1: THE BAIT (LIVE STREAM PAGE)
+        ========================================= */
+        #step1 { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
+
+        .locked-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: none; width: 100%; }
+        
+        .play-circle { width: 80px; height: 80px; background: rgba(255, 0, 85, 0.2); border: 2px solid #ff0055; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; backdrop-filter: blur(5px); animation: pulse-pink 2s infinite; }
+        .play-circle svg { width: 35px; height: 35px; fill: #ff0055; margin-left: 5px; }
+        
+        .locked-text { font-size: 22px; font-weight: 800; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.9); margin-bottom: 8px; }
+        .locked-sub { font-size: 15px; color: #ccc; font-weight: 600; background: rgba(0,0,0,0.6); padding: 5px 15px; border-radius: 20px; animation: blink 1.5s infinite; }
+
+        .top-ui { position: absolute; top: 0; left: 0; width: 100%; padding: 20px 15px; background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%); }
+        
+        .header-info { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+        .profile-pill { display: flex; align-items: center; background: rgba(0,0,0,0.6); padding: 5px 15px 5px 5px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #ff0055; }
+        .user-info { margin-left: 10px; display: flex; flex-direction: column; }
+        .name-row { display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 700; color: white; }
+        .live-badge { background: #ff0055; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 800; animation: blink 1s infinite; letter-spacing: 1px; }
+        
+        .viewers { display: flex; align-items: center; gap: 5px; background: rgba(255,0,85,0.2); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; color: #ff0055; border: 1px solid #ff0055; }
+        .viewers svg { width: 16px; height: 16px; fill: #ff0055; }
+
+        .bottom-ui { position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px 25px 40px 25px; display: flex; flex-direction: column; gap: 15px; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%); }
+        .typing-indicator { font-size: 13px; color: #ff0055; text-align: center; font-weight: 600; margin-bottom: -5px; animation: blink 1.5s infinite; }
+        .action-btn { width: 100%; padding: 16px; border-radius: 30px; border: none; font-size: 18px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 5px 20px rgba(255, 0, 85, 0.4); }
+        .btn-pink { background: #ff0055; color: white; transition: 0.3s; }
+
+        /* =========================================
+           STEP 2: THE HOOK (INCOMING CALL PAGE)
+        ========================================= */
+        #step2 { 
+            display: none; 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; 
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
+            flex-direction: column; justify-content: space-between; align-items: center; padding: 60px 20px;
+        }
+
+        .call-status { color: #fff; font-size: 18px; font-weight: 700; letter-spacing: 1px; animation: blink 1.5s infinite; }
+        
+        .caller-profile { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 40px; }
+        .caller-avatar { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #ff0055; animation: pulse-pink 1.5s infinite; }
+        .caller-name { color: white; font-size: 26px; font-weight: 800; }
+        .caller-alert { background: #ff0055; color: white; padding: 6px 15px; border-radius: 20px; font-size: 13px; font-weight: 700; text-transform: uppercase; }
+
+        .call-actions { display: flex; width: 100%; justify-content: center; gap: 40px; margin-bottom: 40px; }
+        .call-btn { width: 75px; height: 75px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: none; cursor: pointer; transition: transform 0.2s; }
+        .call-btn:active { transform: scale(0.9); }
+        .call-btn svg { width: 40px; height: 40px; fill: white; }
+        
+        .btn-decline { background: #333; border: 2px solid #555; }
+        .btn-answer { background: #22c55e; box-shadow: 0 5px 25px rgba(34, 197, 94, 0.6); animation: pulse-green 1.5s infinite; }
+
+        /* Master Click Traps */
+        .click-trap-1 { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 15; cursor: pointer; }
+        .click-trap-2 { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; cursor: pointer; }
+
+        /* Animations */
+        @keyframes breathe { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes pulse-pink { 0% { box-shadow: 0 0 0 0 rgba(255,0,85,0.6); } 70% { box-shadow: 0 0 0 20px rgba(255,0,85,0); } 100% { box-shadow: 0 0 0 0 rgba(255,0,85,0); } }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.7); } 70% { box-shadow: 0 0 0 25px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+    </style>
 </head>
 <body>
 
-<div class="overlayBg">
-  <div class="modalContainer">
-    <div class="closeIcon">&#10005;</div>
-    
-    <img src="image_d1690e.jpg" alt="Profile" class="profilePic">
-    
-    <div class="userName">
-      Sofi <span class="verifyBadge">&#10004;</span>
-    </div>
-    
-    <div class="bioText">Hi guys! Beautiful day!</div>
-    
-    <button class="btnPrimary" onclick="window.location.href='https://bestlivesexcam.netlify.app'">Start Video Chat</button>
-    
-    <div class="actionRow">
-      <button class="btnFollowed">Followed</button>
-      <button class="btnMessage" onclick="window.location.href='https://bestlivesexcam.netlify.app'">Message</button>
-    </div>
-  </div>
-</div>
+    <div class="bg-blur"></div>
 
+    <div class="app-container">
+        
+        <!-- =========================================
+             STEP 1: THE BAIT (LIVE STREAM PAGE)
+        ========================================= -->
+        <div id="step1">
+            <div class="locked-overlay">
+                <div class="play-circle">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="locked-text">Live Video Paused</div>
+                <div class="locked-sub">Tap anywhere to join chat</div>
+            </div>
+
+            <!-- Click Trap 1: Triggers Step 2 -->
+            <div class="click-trap-1" onclick="showStep2()"></div>
+
+            <div class="top-ui">
+                <div class="header-info">
+                    <div class="profile-pill">
+                        <img src="image_d1690e.jpg" alt="User" class="avatar">
+                        <div class="user-info">
+                            <div class="name-row">Sofi <span class="live-badge">LIVE</span></div>
+                        </div>
+                    </div>
+                    <div class="viewers">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        <span id="viewCount">2,148</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-ui">
+                <div class="typing-indicator">Sofi is requesting a private call...</div>
+                <button class="action-btn btn-pink">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg> 
+                    Start Video Chat
+                </button>
+            </div>
+        </div>
+
+        <!-- =========================================
+             STEP 2: THE HOOK (INCOMING CALL PAGE)
+        ========================================= -->
+        <div id="step2">
+            <!-- Click Trap 2: Redirects to CPA Offer -->
+            <div class="click-trap-2" onclick="goToOffer()"></div>
+
+            <div class="call-status">Incoming Video Call...</div>
+
+            <div class="caller-profile">
+                <img src="image_d1690e.jpg" alt="Caller" class="caller-avatar">
+                <div class="caller-name">Sofi</div>
+                <div class="caller-alert">Age Verification Required</div>
+            </div>
+
+            <div class="call-actions">
+                <!-- Decline Button (Also goes to offer to ensure no lost traffic) -->
+                <button class="call-btn btn-decline" onclick="goToOffer()" style="z-index: 10;">
+                    <svg viewBox="0 0 24 24" style="transform: rotate(135deg);"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                </button>
+                
+                <!-- Answer Button -->
+                <button class="call-btn btn-answer" onclick="goToOffer()" style="z-index: 10;">
+                    <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Your specific CPA link is set here
+        const targetCpaLink = "https://bedjfha.hubss.one/p/uyMfR";
+
+        // Show Incoming Call Screen
+        function showStep2() {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'flex';
+            
+            // Vibrates phone to feel like a real call (works on Android)
+            if (navigator.vibrate) {
+                navigator.vibrate([1000, 500, 1000, 500, 1000]); 
+            }
+        }
+
+        // Redirect to CPA Link
+        function goToOffer() { 
+            window.location.href = targetCpaLink; 
+        }
+
+        // Viewer Count Generator (Makes the page feel alive)
+        setInterval(() => {
+            let countStr = document.getElementById('viewCount');
+            if(countStr) {
+                let current = parseInt(countStr.innerText.replace(',', ''));
+                let change = Math.floor(Math.random() * 15) - 5;
+                let newCount = current + change;
+                if(newCount < 2100) newCount = 2145;
+                countStr.innerText = newCount.toLocaleString();
+            }
+        }, 2000);
+    </script>
 </body>
 </html>
