@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Chat Page</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #111;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+  }
+  .overlayBg {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .modalContainer {
+    background: #050505;
+    width: 340px;
+    border-radius: 16px;
+    padding: 25px 20px;
+    border: 1px solid #333;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+  }
+  .closeIcon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+  }
+  .profilePic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #ff0055;
+    margin: 10px auto;
+    object-fit: cover;
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+  }
+  .userName {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px 0 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+  .verifyBadge {
+    color: #1da1f2;
+    font-size: 16px;
+  }
+  .bioText {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 30px;
+  }
+  .btnPrimary {
+    background: #ff0055;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: 0.3s;
+  }
+  .btnPrimary:hover {
+    background: #e6004c;
+  }
+  .actionRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .btnFollowed {
+    background: #ff0055;
+    color: white;
+    border: none;
+    width: 50%;
+    padding: 12px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .btnMessage {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    width: 50%;
+    padding: 12px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="overlayBg">
+  <div class="modalContainer">
+    <div class="closeIcon">&#10005;</div>
+    
+    <img src="image_d1690e.jpg" alt="Profile" class="profilePic">
+    
+    <div class="userName">
+      Sofi <span class="verifyBadge">&#10004;</span>
+    </div>
+    
+    <div class="bioText">Hi guys! Beautiful day!</div>
+    
+    <button class="btnPrimary" onclick="window.location.href='https://bestlivesexcam.netlify.app'">Start Video Chat</button>
+    
+    <div class="actionRow">
+      <button class="btnFollowed">Followed</button>
+      <button class="btnMessage" onclick="window.location.href='https://bestlivesexcam.netlify.app'">Message</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
