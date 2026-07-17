@@ -17,16 +17,15 @@
             overflow: hidden; 
         }
 
-        /* 🔴 UPDATED: Blurred Fullscreen Video */
+        /* Blurred Fullscreen Video */
         .bg-video {
             position: absolute;
             top: -5%; left: -5%;
             width: 110%; height: 110%;
             object-fit: cover;
             z-index: 1;
-            /* এখানে ভিডিও ব্লার এবং ডার্ক করা হয়েছে */
             filter: blur(25px) brightness(0.4); 
-            transform: scale(1.05); /* ব্লার করলে বর্ডারে সাদা দাগ এড়ানোর জন্য */
+            transform: scale(1.05); 
         }
 
         /* UI Overlay Container */
@@ -152,7 +151,7 @@
         /* Fake Chat System */
         .chat-container {
             height: 140px;
-            width: 75%;
+            width: 85%;
             overflow: hidden;
             position: relative;
             mask-image: linear-gradient(to bottom, transparent, black 20%);
@@ -169,14 +168,15 @@
         }
 
         .chat-msg {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             padding: 6px 12px;
             border-radius: 15px;
             color: white;
             font-size: 13px;
             width: fit-content;
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(3px);
             animation: slideUpFade 0.4s ease-out;
+            line-height: 1.4;
         }
         .chat-user { color: #ffcc00; font-weight: 700; margin-right: 5px; }
 
@@ -264,7 +264,7 @@
 </head>
 <body>
 
-    <!-- 🔴 UPDATED: Online Video Link of a moving person -->
+    <!-- Online Video Link of a moving person -->
     <video id="liveVideo" class="bg-video" autoplay loop muted playsinline>
         <source src="https://assets.mixkit.co/videos/preview/mixkit-portrait-of-a-woman-in-a-pool-1259-large.mp4" type="video/mp4">
     </video>
@@ -347,9 +347,66 @@
             vid.play().catch(e => console.log("Waiting for interaction."));
         });
 
-        // Fake Chat System
-        const usernames = ["guest_902", "alex88", "user_xoxo", "mike_pro", "johnny_99", "loverboy", "guest_743", "anon_22", "chris_m", "david_k"];
-        const messages = ["Hi", "Wow 😍", "Notice me!", "Show more", "Hello from USA", "Beautiful", "Join my call", "How are you?", "🔥🔥🔥", "Hey cutie"];
+        // 🔴 UPDATED: 50 High-Converting, Psychological Fake Chat Messages
+        const usernames = [
+            "guest_902", "alex_pro", "user_xoxo", "mike_88", "johnny_99", 
+            "loverboy", "guest_743", "anon_22", "chris_m", "david_k", 
+            "jason_st", "ryan_love", "guest_112", "alpha_male", "tommy_g", 
+            "lonely_guy", "spark_99", "shadow_x", "mr_perfect", "guest_555"
+        ];
+        
+        const messages = [
+            "Wow 😍", 
+            "Unblur please!", 
+            "You look stunning 🔥", 
+            "How to join?",
+            "Turn around", 
+            "Can we talk privately?", 
+            "I just sent a request",
+            "Please accept my call", 
+            "So hot 🔥", 
+            "I want to see your face",
+            "Are you single?", 
+            "Damn, looking good!", 
+            "I'm waiting in the private room",
+            "Show more please", 
+            "You have a beautiful smile", 
+            "I love your eyes",
+            "Can't wait!", 
+            "Is this real?", 
+            "Omg so beautiful", 
+            "Reply me cutie",
+            "Check your inbox", 
+            "I want to send a gift", 
+            "You are perfect",
+            "Just joined the call guys, she is real!", 
+            "Don't ignore me",
+            "Please talk to me", 
+            "My dream girl", 
+            "I am in love", 
+            "Let's go private",
+            "Waiting for you...", 
+            "You are making me crazy", 
+            "Wow that dress!",
+            "I want to know you better", 
+            "Can you hear me?", 
+            "Send me a kiss 😘",
+            "You are glowing", 
+            "I need you", 
+            "Just sent a tip 💸", 
+            "How do I unblur this?",
+            "Click the screen to see guys!", 
+            "I am so lucky", 
+            "You are an angel",
+            "Please say my name", 
+            "I want to be yours", 
+            "So gorgeous!",
+            "Looking perfect today", 
+            "I'm addicted to you", 
+            "Private chat?",
+            "Accept my private request!", 
+            "Hey cutie"
+        ];
         
         function addFakeComment() {
             const chatBox = document.getElementById("chat-box");
