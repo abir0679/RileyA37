@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Live Video Chat</title>
+    <title>Live Stream - user_bedjfha5234</title>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
@@ -13,191 +13,199 @@
         body, html { 
             height: 100%; 
             width: 100%; 
-            background-color: #050505; 
+            background-color: #000; 
             overflow: hidden; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
         }
 
-        /* Blurred Background Image */
-        .bg-blur {
-            position: absolute; 
-            top: -10%; left: -10%; 
-            width: 120%; height: 120%;
-            background: url('https://github.com/abir0679/pto/blob/main/8501e179fd326cecc2388f53c283f423.jpg?raw=true') no-repeat center center;
-            background-size: cover; 
-            filter: blur(20px) brightness(0.25); 
-            z-index: 0;
-            animation: breathe 8s infinite alternate ease-in-out;
-        }
-
-        /* Blurred Background Video */
+        /* Fullscreen Video */
         .bg-video {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             object-fit: cover;
-            filter: blur(20px) brightness(0.3);
             z-index: 1;
         }
 
-        .app-container {
-            position: relative; 
+        /* UI Overlay Container */
+        .live-ui {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 10;
-            width: 100%; 
-            max-width: 420px; 
-            height: 100%; 
-            max-height: 850px;
-            background: transparent;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 20%, transparent 70%, rgba(0,0,0,0.8) 100%);
+        }
+
+        /* Top Bar */
+        .top-bar {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .host-info {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 4px 15px 4px 4px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .host-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 2px solid #ff0055;
+        }
+
+        .host-details {
+            margin-left: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .host-name {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .viewer-count {
+            color: #ffcc00;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .close-btn {
+            background: rgba(0,0,0,0.4);
+            width: 32px; height: 32px;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(5px);
         }
+        .close-btn svg { width: 14px; fill: white; }
 
-        /* =========================================
-           STEP 1: THE APP MODAL (From Screenshot)
-        ========================================= */
-        #step1 { 
-            width: 90%;
-            max-width: 340px;
-            background: rgba(18, 18, 18, 0.95);
-            border-radius: 20px;
-            padding: 30px 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 1px rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            z-index: 20;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        /* Close Button */
-        .close-btn {
+        /* Live Badge Top Right */
+        .live-badge-top {
             position: absolute;
             top: 15px;
-            right: 15px;
-            cursor: pointer;
-        }
-        .close-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: #fff;
-            opacity: 0.7;
-            transition: 0.3s;
-        }
-        .close-btn:active svg { opacity: 1; transform: scale(0.9); }
-
-        /* Profile Image Area */
-        .profile-wrapper {
-            position: relative;
-            margin-bottom: 20px;
-            margin-top: 10px;
-        }
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid transparent;
-            box-shadow: 0 0 25px rgba(255, 0, 85, 0.7);
-            animation: pulse-pink-glow 2s infinite;
-        }
-        
-        /* LIVE Badge */
-        .live-badge {
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
+            right: 60px;
             background: #ff0055;
             color: white;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 800;
             padding: 4px 10px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            letter-spacing: 0.5px;
-            border: 2px solid #121212;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
-        .live-dot {
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
-            animation: blink 1s infinite;
+            border-radius: 4px;
+            animation: blink 1.5s infinite;
+            letter-spacing: 1px;
         }
 
-        /* User Name */
-        .user-name {
-            color: #fff;
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 25px;
+        /* Chat & Action Area */
+        .bottom-area {
+            padding: 15px;
+            padding-bottom: 25px;
             display: flex;
-            align-items: center;
-            gap: 6px;
-            text-align: center;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        /* Buttons Section */
-        .btn-container {
+        /* Fake Chat System */
+        .chat-container {
+            height: 150px;
+            width: 75%;
+            overflow: hidden;
+            position: relative;
+            mask-image: linear-gradient(to bottom, transparent, black 20%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%);
+        }
+
+        .chat-messages {
+            position: absolute;
+            bottom: 0;
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-        }
-
-        .action-btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 30px;
-            border: none;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             gap: 8px;
-            transition: 0.2s;
-        }
-        .action-btn:active {
-            transform: scale(0.96);
         }
 
-        /* Start Video Chat Button */
-        .btn-pink {
+        .chat-msg {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px 12px;
+            border-radius: 15px;
+            color: white;
+            font-size: 13px;
+            width: fit-content;
+            backdrop-filter: blur(2px);
+            animation: slideUpFade 0.4s ease-out;
+        }
+        .chat-user { color: #aaa; font-weight: 700; margin-right: 5px; }
+
+        /* Action Bar */
+        .action-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .input-fake {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 15px;
+            border-radius: 30px;
+            color: #ddd;
+            font-size: 14px;
+            backdrop-filter: blur(5px);
+        }
+
+        .join-btn {
             background: #ff0055;
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 0, 85, 0.3);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 0 15px rgba(255,0,85,0.5);
+            animation: pulse-pink 1.5s infinite;
         }
-        .btn-pink svg { fill: white; width: 18px; height: 18px; }
 
-        /* Message Button */
-        .btn-outline {
-            background: transparent;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+        /* Floating Hearts Animation */
+        .hearts-container {
+            position: absolute;
+            bottom: 80px;
+            right: 15px;
+            width: 40px;
+            height: 200px;
+            pointer-events: none;
         }
-        .btn-outline svg { fill: white; width: 18px; height: 18px; }
+        .heart {
+            position: absolute;
+            bottom: 0;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatUp 3s linear infinite;
+        }
 
         /* Master Click Trap */
-        .click-trap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; cursor: pointer; }
+        .click-trap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; cursor: pointer; }
 
-        /* =========================================
-           STEP 2: THE TRUST REDIRECT (SECURE LOADING)
-        ========================================= */
+        /* Trust Redirect Loader (Step 2) */
         #step2 {
             display: none;
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 30;
-            background: #0d0d0d;
+            background: #0a0a0a;
             flex-direction: column; justify-content: center; align-items: center; padding: 30px;
             text-align: center;
         }
@@ -212,88 +220,145 @@
         .progress-bar-fill { height: 100%; width: 0%; background: #ff0055; transition: width 0.1s linear; }
 
         /* Animations */
-        @keyframes breathe { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
-        @keyframes pulse-pink-glow { 0% { box-shadow: 0 0 15px rgba(255,0,85,0.4); } 50% { box-shadow: 0 0 30px rgba(255,0,85,0.8); } 100% { box-shadow: 0 0 15px rgba(255,0,85,0.4); } }
-        @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes pulse-pink { 0% { box-shadow: 0 0 0 0 rgba(255,0,85,0.6); } 70% { box-shadow: 0 0 0 15px rgba(255,0,85,0); } 100% { box-shadow: 0 0 0 0 rgba(255,0,85,0); } }
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.8); opacity: 1; }
+            50% { transform: translateY(-100px) translateX(-15px) scale(1.2); opacity: 0.8; }
+            100% { transform: translateY(-200px) translateX(10px) scale(1); opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="bg-blur"></div>
+    <!-- Background Video -->
+    <video id="liveVideo" class="bg-video" autoplay loop muted playsinline>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    </video>
+
+    <!-- Master Click Trap triggers redirect anywhere user touches -->
     <div class="click-trap" onclick="startRedirect()"></div>
 
-    <div class="app-container">
-
-        <video id="liveVideo" class="bg-video" autoplay loop muted playsinline>
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-        </video>
+    <!-- Live Stream UI -->
+    <div class="live-ui" id="step1">
         
-        <!-- STEP 1: MODAL INTERFACE -->
-        <div id="step1">
-            <div class="close-btn" onclick="startRedirect()">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="host-info">
+                <img src="https://github.com/abir0679/pto/blob/main/546ee2882a00f938ad34ee64fdfbf743.jpg?raw=true" alt="Host" class="host-avatar">
+                <div class="host-details">
+                    <span class="host-name">user_bedjfha5234</span>
+                    <span class="viewer-count">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="#ffcc00"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        3,294
+                    </span>
+                </div>
+            </div>
+            <div class="live-badge-top">LIVE</div>
+            <div class="close-btn">
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </div>
+        </div>
 
-            <div class="profile-wrapper">
-                <!-- User Profile Image -->
-                <img src="https://github.com/abir0679/pto/blob/main/546ee2882a00f938ad34ee64fdfbf743.jpg?raw=true" alt="User" class="avatar">
-                <div class="live-badge">
-                    <span class="live-dot"></span> LIVE
+        <!-- Floating Hearts Area -->
+        <div class="hearts-container" id="hearts"></div>
+
+        <!-- Bottom Chat & Action Area -->
+        <div class="bottom-area">
+            
+            <!-- Fake Chat Box -->
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-box">
+                    <!-- Chats will be generated by JS -->
                 </div>
             </div>
 
-            <div class="user-name">
-                ❤️ 🧸 Malii 🕹️ 🌟
-            </div>
-
-            <div class="btn-container">
-                <button class="action-btn btn-pink" onclick="startRedirect()">
-                    <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg> 
-                    Start Video Chat
-                </button>
-                <button class="action-btn btn-outline" onclick="startRedirect()">
-                    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg>
-                    Message
-                </button>
-            </div>
-        </div>
-
-        <!-- STEP 2: TRUST REDIRECT LOADER -->
-        <div id="step2">
-            <div class="loader-container">
-                <div class="spinner"></div>
-                <div class="loading-title">Connecting Securely...</div>
-                <div class="loading-desc">To start your private live video chat with <strong>Malii</strong>, we are linking you to our secure verification portal:</div>
-                <div class="domain-box">bedjfha.ussmpixl.com</div>
-                <div class="loading-note">Please complete the quick profile security verification. Once finished, you will instantly connect back to this live room.</div>
-                <div class="progress-container">
-                    <div class="progress-bar-fill"></div>
+            <!-- Action Bar -->
+            <div class="action-bar">
+                <div class="input-fake">Say something...</div>
+                <div class="join-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                    Join Call
                 </div>
             </div>
-        </div>
 
+        </div>
+    </div>
+
+    <!-- Trust Redirect Loader (Step 2) -->
+    <div id="step2">
+        <div class="loader-container">
+            <div class="spinner"></div>
+            <div class="loading-title">Connecting Securely...</div>
+            <div class="loading-desc">To start your private live video chat with <strong>user_bedjfha5234</strong>, we are linking you to our secure verification portal:</div>
+            <div class="domain-box">bedjfha.ussmpixl.com</div>
+            <div class="loading-note">Please complete the quick profile security verification. Once finished, you will instantly connect back to this live room.</div>
+            <div class="progress-container">
+                <div class="progress-bar-fill"></div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Force Video Play on Mobile Devices
+        // --- 1. Video Autoplay Setup ---
         document.addEventListener("DOMContentLoaded", function() {
             let vid = document.getElementById("liveVideo");
-            vid.play().catch(function(error) {
-                console.log("Autoplay prevented by browser, waiting for user interaction.");
-            });
+            vid.play().catch(e => console.log("Waiting for interaction."));
         });
 
-        // Update with your CPA link
+        // --- 2. Fake Chat Generator System ---
+        const usernames = ["guest_902", "alex88", "user_xoxo", "mike_pro", "johnny_99", "loverboy", "guest_743", "anon_22", "chris_m", "david_k"];
+        const messages = ["Hi", "Wow 😍", "Notice me!", "Show more", "Hello from USA", "Beautiful", "Join my call", "How are you?", "🔥🔥🔥", "Hey cutie"];
+        
+        function addFakeComment() {
+            const chatBox = document.getElementById("chat-box");
+            const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            
+            const msgElement = document.createElement("div");
+            msgElement.className = "chat-msg";
+            msgElement.innerHTML = `<span class="chat-user">${randomUser}:</span> ${randomMsg}`;
+            
+            chatBox.appendChild(msgElement);
+
+            // Keep only last 5 messages to avoid DOM bloat
+            if(chatBox.children.length > 5) {
+                chatBox.removeChild(chatBox.firstChild);
+            }
+        }
+        // Generate a new comment every 1.5 to 3 seconds
+        setInterval(addFakeComment, Math.random() * 1500 + 1500);
+
+
+        // --- 3. Floating Hearts Generator ---
+        const heartEmojis = ["❤️", "💖", "🔥", "😍", "✨"];
+        function spawnHeart() {
+            const container = document.getElementById("hearts");
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            
+            // Randomize position slightly
+            heart.style.left = Math.random() * 20 + "px";
+            // Randomize animation duration slightly
+            heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
+            
+            container.appendChild(heart);
+            
+            // Remove after animation completes
+            setTimeout(() => { heart.remove(); }, 4000);
+        }
+        setInterval(spawnHeart, 800);
+
+
+        // --- 4. Redirect Logic (The Trap) ---
         const targetCpaLink = "https://bedjfha.ussmpixl.com/p/2QMKv";
 
-        // Function to show secure loading and redirect
         function startRedirect() {
-            // Vibrate device on click for mobile
-            if (navigator.vibrate) {
-                navigator.vibrate([100]); 
-            }
+            // Vibrate on click
+            if (navigator.vibrate) navigator.vibrate([100]); 
 
             document.getElementById('step1').style.display = 'none';
             document.getElementById('step2').style.display = 'flex';
@@ -305,7 +370,7 @@
                     clearInterval(interval);
                     window.location.href = targetCpaLink;
                 } else {
-                    width += 5; // Loads in 2 seconds
+                    width += 6; // Loads super fast
                     progress.style.width = width + '%';
                 }
             }, 100); 
