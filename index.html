@@ -3,204 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Private Profile - Locked</title>
+    <title>Private Profile | Age Verification</title>
     <style>
-        /* বেসিক স্টাইল */
+        /* বেসিক বডি স্টাইল এবং ব্লার ব্যাকগ্রাউন্ড */
         body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: url('https://images.unsplash.com/photo-1519682577862-22b62b24e493?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            height: 100%;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: url('https://images.unsplash.com/photo-1618085222100-89f2e786b9b3?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* ডার্ক ওভারলে ব্যাকগ্রাউন্ড */
-        .overlay {
-            background-color: rgba(0, 0, 0, 0.85);
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
         }
 
-        /* টপ নোটিফিকেশন বার */
-        .top-bar {
-            background-color: #ff3b30;
-            color: white;
-            width: 100%;
-            text-align: center;
-            padding: 12px 0;
-            font-weight: bold;
-            font-size: 16px;
+        /* ব্যাকগ্রাউন্ড ওভারলে যাতে কার্ডটি ফুটে ওঠে */
+        .overlay {
             position: absolute;
-            top: 0;
-            z-index: 10;
-            animation: slideDown 0.5s ease-out, pulseText 2s infinite;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 15, 20, 0.7);
+            backdrop-filter: blur(8px); /* রিয়েলিস্টিক ব্লার এফেক্ট */
+            -webkit-backdrop-filter: blur(8px);
         }
 
-        /* মেইন লকার বক্স */
-        .locker-box {
-            background-color: white;
-            width: 90%;
-            max-width: 450px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            padding: 25px;
-            text-align: center;
+        /* প্রিমিয়াম গ্লাসমরফিজম কার্ড */
+        .glass-card {
             position: relative;
-            animation: popIn 0.6s ease-out;
-            margin-top: 40px;
-        }
-
-        .lock-icon {
-            font-size: 50px;
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            color: #d9534f;
-            font-size: 22px;
-            margin: 0 0 15px 0;
-        }
-
-        p.desc {
-            color: #444;
-            font-size: 15px;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-
-        /* ড্যাশবোর্ড ফিচার লিস্ট */
-        .features {
-            text-align: left;
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            margin-bottom: 25px;
-        }
-
-        .features h3 {
-            font-size: 16px;
-            color: #333;
-            margin-top: 0;
-            margin-bottom: 10px;
+            width: 90%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px 30px;
             text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            animation: fadeIn 0.8s ease-out forwards;
         }
 
-        .features ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        /* প্রোফাইল ছবি এবং অনলাইন স্ট্যাটাস */
+        .profile-pic-container {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px auto;
         }
 
-        .features li {
-            font-size: 15px;
-            color: #222;
-            margin-bottom: 10px;
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            filter: blur(2px); /* সিকিউরিটির জন্য ছবি সামান্য ব্লার */
+        }
+
+        .online-dot {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 16px;
+            height: 16px;
+            background-color: #00e676;
+            border-radius: 50%;
+            border: 3px solid #1a1a24;
+            box-shadow: 0 0 10px #00e676;
+            animation: blink 2s infinite;
+        }
+
+        /* টেক্সট স্টাইল */
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #cfcfd6;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* সিকিউরিটি ব্যাজ */
+        .security-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
-            font-weight: bold;
+            justify-content: center;
+            gap: 8px;
+            margin-left: auto;
+            margin-right: auto;
+            width: fit-content;
         }
 
-        .features li span {
-            margin-right: 10px;
-            font-size: 18px;
+        /* ফিচার লিস্ট */
+        .feature-list {
+            text-align: left;
+            margin-bottom: 30px;
+            padding-left: 10px;
         }
 
-        /* CTA বাটন */
-        .cta-btn {
+        .feature-list p {
+            font-size: 14px;
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            color: #e0e0e0;
+        }
+
+        .feature-list p svg {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            fill: #00e676;
+        }
+
+        /* রিয়েলিস্টিক কল-টু-অ্যাকশন বাটন */
+        .verify-btn {
             display: block;
-            background-color: #28a745;
+            width: 100%;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
             color: white;
             text-decoration: none;
-            padding: 16px;
-            font-size: 17px;
+            padding: 16px 0;
+            border-radius: 30px;
+            font-size: 16px;
             font-weight: bold;
-            border-radius: 8px;
+            letter-spacing: 1px;
             text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
-            animation: pulseBtn 1.5s infinite;
+            box-sizing: border-box;
         }
 
-        .cta-btn:hover {
-            background-color: #218838;
+        .verify-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
         }
 
-        /* ফেক চ্যাট উইজেট */
-        .chat-widget {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            width: 250px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            border-left: 5px solid #ff3b30;
-            animation: slideUp 1s forwards;
-            animation-delay: 2s;
-            opacity: 0;
+        /* অ্যানিমেশন */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .chat-widget p {
-            margin: 0;
-            font-size: 14px;
-            color: #333;
-            font-weight: bold;
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
-
-        /* অ্যানিমেশন সমূহ */
-        @keyframes slideDown { from { top: -50px; } to { top: 0; } }
-        @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        @keyframes pulseBtn { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
-        @keyframes slideUp { from { bottom: -50px; opacity: 0; } to { bottom: 20px; opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <!-- টপ নোটিফিকেশন -->
-    <div class="top-bar">
-        🔔 Notification: You have (1) Missed Video Call Request. Unlock profile to answer!
-    </div>
+    <div class="overlay"></div>
 
-    <!-- মেইন কন্টেইনার -->
-    <div class="overlay">
-        <div class="locker-box">
-            <div class="lock-icon">🔒</div>
-            <h2>Private Profile Locked for Security!</h2>
-            <p class="desc">
-                I only connect with <b>REAL</b> men, not bots. To prove you are human and get instant access to my private contact details, please create a <b>100% FREE</b> account. It takes 30 seconds!
-            </p>
-
-            <!-- ভিআইপি ড্যাশবোর্ড ফিচার -->
-            <div class="features">
-                <h3>Once verified, you will unlock:</h3>
-                <ul>
-                    <li><span>✅</span> Direct WhatsApp Number</li>
-                    <li><span>📹</span> Instant 1-on-1 Video Call</li>
-                    <li><span>📞</span> Audio & Voice Notes</li>
-                    <li><span>🔴</span> Live VIP Cam Access</li>
-                    <li><span>🔞</span> Secret Photo/Video Gallery</li>
-                </ul>
-            </div>
-
-            <!-- স্মার্টলিংক বসানো হয়েছে -->
-            <a href="http://snapurl.online/s/bedjfha180" class="cta-btn">
-                🔓 Create Free Account & Call Now
-            </a>
+    <div class="glass-card">
+        
+        <div class="profile-pic-container">
+            <!-- একটি জেনেরিক ফিমেল সিলুয়েট যা ব্লার করা আছে -->
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Profile" class="profile-pic">
+            <div class="online-dot"></div>
         </div>
-    </div>
 
-    <!-- ফেক চ্যাট উইজেট -->
-    <div class="chat-widget">
-        <p>💬 <b>Hey, are you there?</b> I'm waiting for your video call. Create your free account quickly! ❤️</p>
+        <h1>Age Verification Required</h1>
+        
+        <div class="security-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Private Profile Locked
+        </div>
+
+        <p class="subtitle">This profile contains sensitive media. To ensure you are not a bot and are 18+ years old, please verify your account.</p>
+
+        <div class="feature-list">
+            <p>
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                Unlock full photo & video gallery
+            </p>
+            <p>
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                Enable direct messaging
+            </p>
+            <p>
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                Access private 1-on-1 video call
+            </p>
+        </div>
+
+        <!-- আপনার আপডেট করা লিংকটি এখানে বসানো হয়েছে -->
+        <a href="https://bedjfha.utmpix.com/s/62b4abc4a39b9" class="verify-btn">
+            Verify For Free
+        </a>
+        
+        <p style="font-size: 11px; color: #888; margin-top: 15px;">Takes less than 30 seconds. No charges applied.</p>
     </div>
 
 </body>
