@@ -2,314 +2,206 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🔒 Private Video Chat Invitation</title>
-
-    <!-- 🔴 LINK PREVIEW / THUMBNAIL GENERATOR (Open Graph) -->
-    <!-- এই ট্যাগগুলোর কারণে টাইমলাইনে শেয়ার করলে কোনো ফটো বা লিংক না দেখিয়ে সরাসরি একটি রিয়েল লাইভ প্রিভিউ শো করবে -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="🔴 LIVE: Private Call Invitation from user_bedjfha5234">
-    <meta property="og:description" content="Click to accept the private 1-on-1 video room invitation. Connection is secure and confidential.">
-    <meta property="og:image" content="https://github.com/abir0679/pto/blob/main/546ee2882a00f938ad34ee64fdfbf743.jpg?raw=true">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Profile - Locked</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
-        
-        body, html { 
-            height: 100%; 
-            width: 100%; 
-            background-color: #050505; 
-            overflow: hidden; 
+        /* বেসিক স্টাইল */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: url('https://images.unsplash.com/photo-1519682577862-22b62b24e493?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        /* Highly Blurred Fullscreen Video (Creates heavy curiosity) */
-        .bg-video {
+        /* ডার্ক ওভারলে ব্যাকগ্রাউন্ড */
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.85);
             position: absolute;
-            top: -5%; left: -5%;
-            width: 110%; height: 110%;
-            object-fit: cover;
-            z-index: 1;
-            filter: blur(30px) brightness(0.35); /* কড়া ব্লার ও ডার্ক ইফেক্ট */
-            transform: scale(1.05); 
-        }
-
-        /* 1-on-1 Main UI Overlay */
-        .private-ui {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 25px 20px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.9) 100%);
-        }
-
-        /* Top Header: Security Status */
-        .secure-header {
+            top: 0; left: 0; width: 100%; height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
-        }
-
-        .status-badge {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 16px;
-            border-radius: 30px;
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: #10b981; /* Green color for secure */
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-        }
-
-        .pulse-dot {
-            width: 8px; height: 8px;
-            background: #10b981;
-            border-radius: 50%;
-            animation: blink 1.2s infinite;
-        }
-
-        /* Center Section: 1-on-1 Calling / Waiting Illusion */
-        .calling-box {
-            display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-top: -30px;
         }
 
-        .avatar-container {
+        /* টপ নোটিফিকেশন বার */
+        .top-bar {
+            background-color: #ff3b30;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 12px 0;
+            font-weight: bold;
+            font-size: 16px;
+            position: absolute;
+            top: 0;
+            z-index: 10;
+            animation: slideDown 0.5s ease-out, pulseText 2s infinite;
+        }
+
+        /* মেইন লকার বক্স */
+        .locker-box {
+            background-color: white;
+            width: 90%;
+            max-width: 450px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 25px;
+            text-align: center;
             position: relative;
+            animation: popIn 0.6s ease-out;
+            margin-top: 40px;
+        }
+
+        .lock-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #d9534f;
+            font-size: 22px;
+            margin: 0 0 15px 0;
+        }
+
+        p.desc {
+            color: #444;
+            font-size: 15px;
+            line-height: 1.5;
             margin-bottom: 20px;
         }
 
-        .main-avatar {
-            width: 110px; height: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ff0055;
-            box-shadow: 0 0 30px rgba(255, 0, 85, 0.6);
-            z-index: 5;
-            position: relative;
+        /* ড্যাশবোর্ড ফিচার লিস্ট */
+        .features {
+            text-align: left;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 25px;
         }
 
-        /* Pulsing Rings behind Avatar to look like an incoming private call */
-        .pulse-ring {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 110px; height: 110px;
-            border-radius: 50%;
-            border: 2px solid #ff0055;
-            animation: ring-pulse 2s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
-            pointer-events: none;
-        }
-        .pulse-ring2 { animation-delay: 0.5s; }
-
-        .connection-id {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 6px;
-            letter-spacing: 1px;
-        }
-
-        .main-notice {
-            color: #fff;
-            font-size: 22px;
-            font-weight: 800;
-            line-height: 1.3;
-            margin-bottom: 12px;
-            padding: 0 10px;
-        }
-
-        .sub-notice {
-            color: #ccc;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 1.5;
-            max-width: 290px;
-        }
-        .sub-notice strong { color: #ff0055; }
-
-        /* Bottom Section: Single Call Action Button */
-        .bottom-action {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            padding-bottom: 20px;
-        }
-
-        .accept-call-btn {
-            width: 100%;
-            max-width: 320px;
-            background: #ff0055;
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 35px;
+        .features h3 {
             font-size: 16px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 8px 25px rgba(255, 0, 85, 0.5);
-            animation: button-bounce 2s infinite;
-            cursor: pointer;
-            letter-spacing: 0.5px;
-        }
-        .accept-call-btn svg { fill: white; width: 22px; height: 22px; }
-
-        .secure-lock-text {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #888;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        .secure-lock-text svg { fill: #888; width: 12px; height: 12px; }
-
-        /* Master Click Trap */
-        .click-trap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; cursor: pointer; }
-
-        /* Trust Redirect Loader (Step 2) */
-        #step2 {
-            display: none;
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 30;
-            background: #0a0a0a;
-            flex-direction: column; justify-content: center; align-items: center; padding: 30px;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
             text-align: center;
         }
 
-        .loader-container { width: 100%; max-width: 320px; display: flex; flex-direction: column; align-items: center; }
-        .spinner { width: 55px; height: 55px; border: 4px solid rgba(255, 0, 85, 0.1); border-top: 4px solid #ff0055; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 25px; }
-        .loading-title { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 15px; }
-        .loading-desc { font-size: 13px; color: #ccc; line-height: 1.6; margin-bottom: 15px; }
-        .domain-box { background: rgba(255, 0, 85, 0.15); border: 1px solid rgba(255, 0, 85, 0.4); color: #ff0055; padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: 14px; margin-bottom: 15px; letter-spacing: 0.5px; }
-        .loading-note { font-size: 12px; color: #888; line-height: 1.4; margin-bottom: 25px; }
-        .progress-container { width: 100%; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; width: 0%; background: #ff0055; transition: width 0.1s linear; }
-
-        /* Animations */
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        @keyframes ring-pulse {
-            0% { width: 110px; height: 110px; opacity: 1; }
-            100% { width: 190px; height: 190px; opacity: 0; }
+        .features ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        @keyframes button-bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.04); box-shadow: 0 12px 30px rgba(255, 0, 85, 0.7); }
+        .features li {
+            font-size: 15px;
+            color: #222;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
         }
+
+        .features li span {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        /* CTA বাটন */
+        .cta-btn {
+            display: block;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: bold;
+            border-radius: 8px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+            animation: pulseBtn 1.5s infinite;
+        }
+
+        .cta-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* ফেক চ্যাট উইজেট */
+        .chat-widget {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            width: 250px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border-left: 5px solid #ff3b30;
+            animation: slideUp 1s forwards;
+            animation-delay: 2s;
+            opacity: 0;
+        }
+
+        .chat-widget p {
+            margin: 0;
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* অ্যানিমেশন সমূহ */
+        @keyframes slideDown { from { top: -50px; } to { top: 0; } }
+        @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes pulseBtn { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+        @keyframes slideUp { from { bottom: -50px; opacity: 0; } to { bottom: 20px; opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <!-- Blurred Background Video of the Moving Girl -->
-    <video id="liveVideo" class="bg-video" autoplay loop muted playsinline>
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-portrait-of-a-woman-in-a-pool-1259-large.mp4" type="video/mp4">
-    </video>
-
-    <!-- Master Click Trap triggers redirect anywhere user touches -->
-    <div class="click-trap" onclick="startRedirect()"></div>
-
-    <!-- 1-on-1 Exclusive Live UI -->
-    <div class="private-ui" id="step1">
-        
-        <!-- Top Status Bar -->
-        <div class="secure-header">
-            <div class="status-badge">
-                <span class="pulse-dot"></span> SECURE 1-ON-1 CONNECTION
-            </div>
-        </div>
-
-        <!-- Center Calling Info -->
-        <div class="calling-box">
-            <div class="avatar-container">
-                <img src="https://github.com/abir0679/pto/blob/main/546ee2882a00f938ad34ee64fdfbf743.jpg?raw=true" alt="Host" class="main-avatar">
-                <div class="pulse-ring"></div>
-                <div class="pulse-ring pulse-ring2"></div>
-            </div>
-            
-            <div class="connection-id">ROOM ID: #bedjfha5234</div>
-            <div class="main-notice">Private Live Cam is Waiting...</div>
-            <div class="sub-notice">You are the only guest invited to this room. Tap below to <strong>unblur the stream</strong> and start your private video chat.</div>
-        </div>
-
-        <!-- Bottom Call Accept Section -->
-        <div class="bottom-action">
-            <button class="accept-call-btn">
-                <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.58l2.2-2.21c.28-.26.36-.65.25-1C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg>
-                ACCEPT PRIVATE CALL
-            </button>
-            <div class="secure-lock-text">
-                <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-                End-to-end encrypted & 100% private
-            </div>
-        </div>
-
+    <!-- টপ নোটিফিকেশন -->
+    <div class="top-bar">
+        🔔 Notification: You have (1) Missed Video Call Request. Unlock profile to answer!
     </div>
 
-    <!-- Trust Redirect Loader (Step 2) -->
-    <div id="step2">
-        <div class="loader-container">
-            <div class="spinner"></div>
-            <div class="loading-title">Connecting Securely...</div>
-            <div class="loading-desc">Establishing a private P2P video tunnel with <strong>user_bedjfha5234</strong>. Please standby for security validation:</div>
-            <div class="domain-box">bedjfha.ussmpixl.com</div>
-            <div class="loading-note">Please complete the quick mobile profile verification to unlock the video stream. Once verified, the camera will instantly unblur.</div>
-            <div class="progress-container">
-                <div class="progress-bar-fill"></div>
+    <!-- মেইন কন্টেইনার -->
+    <div class="overlay">
+        <div class="locker-box">
+            <div class="lock-icon">🔒</div>
+            <h2>Private Profile Locked for Security!</h2>
+            <p class="desc">
+                I only connect with <b>REAL</b> men, not bots. To prove you are human and get instant access to my private contact details, please create a <b>100% FREE</b> account. It takes 30 seconds!
+            </p>
+
+            <!-- ভিআইপি ড্যাশবোর্ড ফিচার -->
+            <div class="features">
+                <h3>Once verified, you will unlock:</h3>
+                <ul>
+                    <li><span>✅</span> Direct WhatsApp Number</li>
+                    <li><span>📹</span> Instant 1-on-1 Video Call</li>
+                    <li><span>📞</span> Audio & Voice Notes</li>
+                    <li><span>🔴</span> Live VIP Cam Access</li>
+                    <li><span>🔞</span> Secret Photo/Video Gallery</li>
+                </ul>
             </div>
+
+            <!-- স্মার্টলিংক বসানো হয়েছে -->
+            <a href="http://snapurl.online/s/bedjfha180" class="cta-btn">
+                🔓 Create Free Account & Call Now
+            </a>
         </div>
     </div>
 
-    <script>
-        // Force Video Play
-        document.addEventListener("DOMContentLoaded", function() {
-            let vid = document.getElementById("liveVideo");
-            vid.play().catch(e => console.log("Waiting for user interaction to play video."));
-        });
+    <!-- ফেক চ্যাট উইজেট -->
+    <div class="chat-widget">
+        <p>💬 <b>Hey, are you there?</b> I'm waiting for your video call. Create your free account quickly! ❤️</p>
+    </div>
 
-        // CPA Link Logic
-        const targetCpaLink = "https://bedjfha.litracksm.com/s/62b4abc4a39b9";
-
-        function startRedirect() {
-            if (navigator.vibrate) navigator.vibrate([100]); 
-
-            document.getElementById('step1').style.display = 'none';
-            document.getElementById('step2').style.display = 'flex';
-            
-            let progress = document.querySelector('.progress-bar-fill');
-            let width = 0;
-            let interval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(interval);
-                    window.location.href = targetCpaLink;
-                } else {
-                    width += 7; // Fast loading screen (approx 1.5s)
-                    progress.style.width = width + '%';
-                }
-            }, 100); 
-        }
-    </script>
 </body>
 </html>
